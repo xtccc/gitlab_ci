@@ -1,3 +1,5 @@
 job1:
+  image: omyzsh_archlinux
   script: "pwd"
+  script: "echo $SHELL"
   
