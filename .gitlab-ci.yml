@@ -2,8 +2,10 @@ stages:
   - compile
   - test
 
+image:
+    name: centos:ssh_docker
+    
 .compile:
-  image: centos:ssh_docker
   stage: compile
   artifacts:
     paths:
@@ -21,18 +23,8 @@ compile_debug:
   extends:
     - .compile
 
-compile_OEM:
-  script:
-    - mkdir ci-test-output/
-    - echo "OEM" > install.rpm
-    - echo "OEM.sh" >  install.sh
-    - mv install*  ci-test-output/
-  extends:
-    - .compile
-
 
 docker_test:
-  image: centos:ssh_docker
   stage: test
   dependencies: [ "compile_OEM" ]
   script:
