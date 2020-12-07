@@ -34,7 +34,8 @@ compile_OEM:
 
 
 docker_test:
-  image: centos:ssh_docker
+  image:
+    name: centos:ssh_docker
   stage: test
   dependencies: [ "compile_OEM" ]
   script:
