@@ -1,18 +1,53 @@
-job1:
-  image: centos
-  script:
-    - "pwd"
-    - "echo $SHELL"
-  only:
-    variables:
-      - $TEST_JOB =~ /\b(test-1)\b/i
-job2:
-  image: centos
-  script:
-    - "pwd"
-    - "echo $SHELL"
-  only:
-    variables:
-      - $TEST_JOB =~ /\b(test-2)\b/i
+stages:
+  - compile
+  - test
 
-  
+image:
+    name: centos
+
+.compile:
+  stage: compile
+  artifacts:
+    paths:
+      -  ci-test-output/
+  only:
+    variables:
+      - $TEST_JOB =~ /\b(full|docker_test|rg)\b/i
+
+compile_debug:
+  script:
+    - mkdir ci-test-output/
+    -  echo "dubug" >  install.rpm
+    -  echo "dubug.sh" > install.sh
+    - mv install*  ci-test-output/
+  extends:
+    - .compile
+
+compile_OEM:
+  script:
+    - mkdir ci-test-output/
+    - echo "OEM" > install.rpm
+    - echo "OEM.sh" >  install.sh
+    - mv install*  ci-test-output/
+  extends:
+    - .compile
+
+
+docker_test:
+  stage: test
+  dependencies: [ "compile_OEM" ]
+  script:
+    - ifconfig
+  only:
+    variables:
+      - $TEST_JOB =~ /\b(full|docker_test)\b/i
+
+regress_test:
+  stage: test
+  dependencies: [ "compile_debug" ]
+  script:
+    - ifconfig
+  only:
+    variables:
+      - $TEST_JOB =~ /\b(full|rg)\b/i
+
