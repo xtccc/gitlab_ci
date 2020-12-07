@@ -37,7 +37,8 @@ docker_test:
   stage: test
   dependencies: [ "compile_OEM" ]
   script:
-    - ifconfig
+    - ssh 172.17.0.2
+    - echo $(ifconfig)
   only:
     variables:
       - $TEST_JOB =~ /\b(full|docker_test)\b/i
