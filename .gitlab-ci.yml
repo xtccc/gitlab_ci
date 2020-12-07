@@ -39,6 +39,7 @@ docker_test:
   script:
     - ls
     - pwd
+    - cat install.sh
     - ssh 172.17.0.2 "bash -xe install.sh"
     - echo $(ifconfig)
   only:
