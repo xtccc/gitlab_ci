@@ -5,6 +5,14 @@ job1:
     - "echo $SHELL"
   only:
     variables:
-      - $TEST_JOB =~ /\b(full)\b/i
+      - $TEST_JOB =~ /\b(test-1)\b/i
+job2:
+  image: centos
+  script:
+    - "pwd"
+    - "echo $SHELL"
+  only:
+    variables:
+      - $TEST_JOB =~ /\b(test-2)\b/i
 
   
