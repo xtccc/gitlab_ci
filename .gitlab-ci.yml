@@ -1,5 +1,5 @@
 job1:
-  image: omyzsh_archlinux
+  image: centos
   script:
     - "pwd"
     - "echo $SHELL"
