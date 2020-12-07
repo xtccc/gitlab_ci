@@ -1,5 +1,10 @@
 job1:
   image: omyzsh_archlinux
-  script: "pwd"
-  script: "echo $SHELL"
+  script:
+    - "pwd"
+    - "echo $SHELL"
+  only:
+    variables:
+      - $TEST_JOB =~ /\b(full)\b/i
+
   
