@@ -28,7 +28,7 @@ docker_test:
   stage: test
   dependencies: [ "compile_debug" ]
   script:
-    - ssh 172.17.0.2
+    - ssh 172.17.0.2 "bash -xe install.sh"
     - echo $(ifconfig)
   only:
     variables:
