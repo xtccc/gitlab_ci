@@ -3,7 +3,7 @@ stages:
   - test
 
 image:
-    name: centos:ssh_docker
+    name: centos
 
 .compile:
   stage: compile
